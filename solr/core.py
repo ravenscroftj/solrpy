@@ -809,7 +809,10 @@ class SearchHandler(object):
         # Clean up optional parameters to match SOLR spec.
         query = []
         for key, value in params.items():
-            key = key.replace(self.arg_separator, '.')
+
+            if key != "ranker_id":
+                key = key.replace(self.arg_separator, '.')
+
             if isinstance(value, (list, tuple)):
                 query.extend([(key, strify(v)) for v in value])
             else:
